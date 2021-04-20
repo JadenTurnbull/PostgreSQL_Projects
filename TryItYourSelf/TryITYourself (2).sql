@@ -283,12 +283,13 @@ Nope, because the numbers on the left side of the comma cannot be more than 3.
 --TryItYourself_p71
 --1
 
-SELECT PI()*(5^2);
+SELECT 3.14 * 5 ^ 2;
 
 yes, you need to get the answer of 5 to the power of 2 before you can multiply 
 that with the value of pie.
 
 --2
+Franklin County, N.Y., with 7.4%. The county contains the St. Regis Mohawk
 
 SELECT geo_name,
 state_us_abbreviation AS "st",
@@ -299,6 +300,85 @@ LIMIT 1;
 
 --3
 
+SELECT 
+
+
+--TryItYourself_91
+
+--1
+
+SELECT c2010.geo_name,
+       c2010.state_us_abbreviation,
+       c2000.geo_name
+FROM us_counties_2010 c2010 LEFT JOIN us_counties_2000 c2000
+ON c2010.state_fips = c2000.state_fips
+   AND c2010.county_fips = c2000.county_fips
+WHERE c2000.geo_name IS NULL;
+
+
+--2
+
+3.2%
+
+SELECT percentile_cont(.5)
+       WITHIN GROUP (ORDER BY round( (CAST(c2010.p0010001 AS numeric(8,1)) - c2000.p0010001)
+           / c2000.p0010001 * 100, 1 )) AS percentile_50th
+FROM us_counties_2010 c2010 INNER JOIN us_counties_2000 c2000
+ON c2010.state_fips = c2000.state_fips
+   AND c2010.county_fips = c2000.county_fips;
+   
+--3
+
+ St. Bernard Parish, La.
+ 
+ SELECT c2010.geo_name,
+       c2010.state_us_abbreviation,
+       c2010.p0010001 AS pop_2010,
+       c2000.p0010001 AS pop_2000,
+       c2010.p0010001 - c2000.p0010001 AS raw_change,
+       round( (CAST(c2010.p0010001 AS DECIMAL(8,1)) - c2000.p0010001)
+           / c2000.p0010001 * 100, 1 ) AS pct_change
+FROM us_counties_2010 c2010 INNER JOIN us_counties_2000 c2000
+ON c2010.state_fips = c2000.state_fips
+   AND c2010.county_fips = c2000.county_fips
+ORDER BY pct_change ASC;
+
+--TryItYourSelf
+
+--1
+
+CREATE TABLE albums (
+    album_id bigserial,
+    album_catalog_code varchar(100) NOT NULL,
+    album_title text NOT NULL,
+    album_artist text NOT NULL,
+    album_release_date date,
+    album_genre varchar(40),
+    album_description text,
+    CONSTRAINT album_id_key PRIMARY KEY (album_id),
+    CONSTRAINT release_date_check CHECK (album_release_date > '1/1/1925')
+);
+
+CREATE TABLE songs (
+    song_id bigserial,
+    song_title text NOT NULL,
+    song_artist text NOT NULL,
+    album_id bigint REFERENCES albums (album_id),
+    CONSTRAINT song_id_key PRIMARY KEY (song_id)
+);
+
+--2
+
+album_catalog_code
+
+--3
+
+Primary key columns get indexes by default, but we should add an index
+to the album_id foreign key column in the songs table because we'll use
+it in table joins. It's likely that we'll query these tables to search
+by titles and artists, so those columns in both tables should get indexes
+too. The album_release_date in albums also is a candidate if we expect
+to perform many queries that include date ranges.
 
 
 

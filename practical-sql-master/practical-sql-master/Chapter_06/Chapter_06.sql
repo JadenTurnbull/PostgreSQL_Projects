@@ -218,3 +218,5 @@ VALUES ('T229901', 'Sam', 'Tracy');
 
 EXPLAIN ANALYZE SELECT * FROM uS_counties_2010
 WHERE geo_name LIKE '%a%';
+
+ 
