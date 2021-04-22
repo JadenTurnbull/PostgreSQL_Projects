@@ -200,7 +200,7 @@ CREATE AGGREGATE median(anyelement) (
 
 --TryItYourself
 
-#TryItYourself_p10
+--TryItYourself_p10 {Chapter 1}
 
 CREATE TABLE animals (
 id bigserial,
@@ -229,7 +229,7 @@ VALUES ('Lion', 2, 100, 'Africa'),
 
 SELECT * FROM animal_info;
 
---TryItYourself_p22
+--TryItYourself_p22 {Chapter 2}
 
 SELECT * 
 FROM teachers
@@ -247,7 +247,7 @@ ORDER BY salary DESC
 
 
 
---TryItYourself_p37
+--TryItYourself_p37 {Chapter 3}
 
 --1
  numeric(4,1)
@@ -262,7 +262,7 @@ It would give an error because there is no month added
 
 
 
--- TryItYourself_p54
+-- TryItYourself_p54 {Chapter 4}
 
 COPY table_name
 FROM 'C:\Directory\imaginary_file.csv'
@@ -280,7 +280,7 @@ WITH (FORMAT CSV, HEADER, DELIMITER '|');
 --3
 Nope, because the numbers on the left side of the comma cannot be more than 3.
 
---TryItYourself_p71
+--TryItYourself_p71 {Chapter 5}
 --1
 
 SELECT 3.14 * 5 ^ 2;
@@ -303,7 +303,7 @@ LIMIT 1;
 SELECT 
 
 
---TryItYourself_112
+--TryItYourself_112 {Chapter 6}
 
 --1
 
@@ -343,7 +343,7 @@ ON c2010.state_fips = c2000.state_fips
    AND c2010.county_fips = c2000.county_fips
 ORDER BY pct_change ASC;
 
---TryItYourSelf_91
+--TryItYourSelf_91 {Chapter 7}
 
 --1
 
@@ -380,7 +380,7 @@ by titles and artists, so those columns in both tables should get indexes
 too. The album_release_date in albums also is a candidate if we expect
 to perform many queries that include date ranges.
 
---TryItYourself_p128
+--TryItYourself_p128 {Chapter 8}
 
 --1
 
@@ -429,7 +429,7 @@ FROM pls_fy2014_pupld14a pls14 FULL OUTER JOIN pls_fy2009_pupld09a pls09
 ON pls14.fscskey = pls09.fscskey
 WHERE pls14.fscskey IS NULL OR pls09.fscskey IS NULL;
 
---TryItYourself_p153
+--TryItYourself_p153 {Chapter 9}
 
 --1
 
@@ -456,6 +456,6 @@ WHERE meat_processing = TRUE AND
       poultry_processing = TRUE;
 	  
 	  
---TryItYourself_p169
+--TryItYourself_p169 {Chapter 10}
 
 
