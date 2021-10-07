@@ -44,7 +44,7 @@ def prompt_show_watched_movies():
 	if movies:
 		print_movie_list("Watched", movies)
 	else:
-		print("That user has not been awsome enough to watch a movie yet!!")
+		print("That user has not been awesome enough to watch a movie yet!!")
 
 def prompt_search_movies():
 	search_term = input("Enter the parial movie title: ")
