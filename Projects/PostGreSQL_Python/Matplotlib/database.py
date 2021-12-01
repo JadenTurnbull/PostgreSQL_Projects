@@ -4,26 +4,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-SELECT_POLLS = "SELECT * FROM polls;"
-SELECT_OPTIONS_IN_POLL = """
-SELECT options.text, SUM(votes) FROM options
-JOINS polls ON options.poll_id - polls.id
-JOINS votes ON options.id - votes.options_id
-WHERE polls.id = %s
-GROUP BY options.text;"""
+SELECT_POLLS_AND_VOTES = """
+SELECT polls.title, SUM(votes.option_id) FROM polls
+JOIN options ON options.poll_id = polls.id
+JOIN votes ON options.id = votes.option_id
+GROUP BY polls.title;"""
 
 connection = psycopg2.connect(os.environ.get("DATABASE_URI"))
 
 
-def get_polls():
+
+def get_poll_and_votes():
     with connection:
         with connection.cursor() as cursor:
-            cursor.execute(SELECT_POLLS)
-            return cursor.fetchall()
-
-
-def get_options(poll_id: int):
-    with connection:
-        with connection.cursor() as cursor:
-            cursor.execute(SELECT_OPTIONS_IN_POLL, (poll_id,))
+            cursor.execute(SELECT_POLLS_AND_VOTES)
             return cursor.fetchall()
